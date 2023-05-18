@@ -11,7 +11,7 @@ jobs:
 
     runs-on: ubuntu-latest
     env:
-      WORKING_DIR: ./PyMathIdentity
+      WORKING_DIR: ./InoversityIdentity
     defaults:
       run:
         working-directory: ${{env.WORKING_DIR}}
