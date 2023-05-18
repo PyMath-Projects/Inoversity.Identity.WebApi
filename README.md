@@ -1,16 +1,18 @@
-# Inoversity Library Web Api
+[![InoversityIdentity-CI](https://github.com/PyMath-Projects/Inoversity.Identity.WebApi/actions/workflows/InoversityIdentity-CI.yml/badge.svg)](https://github.com/PyMath-Projects/Inoversity.Identity.WebApi/actions/workflows/InoversityIdentity-CI.yml)
 
-Inoversity Library **Web Api** built in C# using the
+# Inoversity Identity Web Api
+
+Inoversity Identity **Web Api** built in C# using the
 `Ports & Adapters` architecture, aka `Clean Architecture`.
 
 <img src="./assets/applicationArchitecture.svg" alt="Microservice Architecture">
 
 ## Developer Setup Guide
 
-> **_INFO:_** The project requires .NET 7. To install dotnet, head
+> **_INFO:_** The project requires .NET 6. To install dotnet, head
 > over to [microsoft](https://dotnet.microsoft.com/en-us/download) for installation details.
 
-This section outlines the development setup of the `Inoversity Library Web Api`. If you're not
+This section outlines the development setup of the `Inoversity Identity Web Api`. If you're not
 a shell fan, you can accomplish the same outcome (getting to build the project) using your preferred IDE.
 
 1. Clone the repository to your development environment.
@@ -19,7 +21,7 @@ a shell fan, you can accomplish the same outcome (getting to build the project) 
     ```
 2. Set working directory.
     ```
-    cd ./Inoversity.Library.WebApi/InoversityLibrary/
+    cd ./Inoversity.Library.WebApi/InoversityIdentity/
     ```
 3. Restore dependencies.
     ```
