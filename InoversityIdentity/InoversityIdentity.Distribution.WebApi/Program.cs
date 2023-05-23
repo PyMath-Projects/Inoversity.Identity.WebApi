@@ -16,11 +16,11 @@ try
         .WriteTo.Console(outputTemplate: "[{Timestamp:HH:mm:ss} {Level}] {SourceContext}{NewLine}{Message:lj}{NewLine}{Exception}{NewLine}")
         .Enrich.FromLogContext()
         .ReadFrom.Configuration(ctx.Configuration));
-
+    
     var app = builder
-        .ConfigureServices()
-        .ConfigurePipeline();
-
+    .ConfigureServices()
+    .ConfigurePipeline();
+    
     // this seeding is only for the template to bootstrap the DB and users.
     // in production you will likely want a different approach.
     if (args.Contains("/seed"))
@@ -31,6 +31,7 @@ try
         return;
     }
 
+    app.MapGet("/", () => "Hello World");
     app.Run();
 }
 catch (Exception ex) when (

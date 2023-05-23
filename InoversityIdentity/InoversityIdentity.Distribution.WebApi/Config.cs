@@ -17,7 +17,8 @@ public static class Config
     public static IEnumerable<ApiScope> ApiScopes =>
         new List<ApiScope>
         {
-            new ApiScope("api1", "My API")
+            new ApiScope("inoversityrecords.read", "Inoversity Records Api"),
+            new ApiScope("inoversityrecords.write", "Inoversity Records Api"),
         };
 
     public static IEnumerable<Client> Clients =>
@@ -26,12 +27,10 @@ public static class Config
             // machine to machine client
             new Client
             {
-                ClientId = "client",
+                ClientId = "inoversityrecordsclient",
                 ClientSecrets = { new Secret("secret".Sha256()) },
-
                 AllowedGrantTypes = GrantTypes.ClientCredentials,
-                // scopes that client has access to
-                AllowedScopes = { "api1" }
+                AllowedScopes = {"inoversityrecords.read", "inoversityrecords.write"}
             },
                 
             // interactive ASP.NET Core MVC client
@@ -42,10 +41,8 @@ public static class Config
 
                 AllowedGrantTypes = GrantTypes.Code,
                     
-                // where to redirect to after login
                 RedirectUris = { "https://localhost:5002/signin-oidc" },
-
-                // where to redirect to after logout
+                FrontChannelLogoutUri = "https://localhost:5444/signout-oidc",
                 PostLogoutRedirectUris = { "https://localhost:5002/signout-callback-oidc" },
                 
                 AllowOfflineAccess = true,
@@ -54,9 +51,19 @@ public static class Config
                 {
                     IdentityServerConstants.StandardScopes.OpenId,
                     IdentityServerConstants.StandardScopes.Profile,
-                    "api1",
+                    "inoversityrecords",
                     "color"
                 }
             }
         };
+    
+    public static IEnumerable<ApiResource> ApiResources => new[]
+    {
+        new ApiResource("inoversityrecords")
+        {
+            Scopes = new List<string> {"inoversityrecords.read", "inoversityrecords.write"},
+            ApiSecrets = new List<Secret> {new Secret("ScopeSecret".Sha256())},
+            UserClaims = new List<string> {"role"}
+        }
+    };
 }
