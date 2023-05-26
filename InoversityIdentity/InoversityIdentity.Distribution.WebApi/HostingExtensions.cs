@@ -1,4 +1,3 @@
-using InoversityIdentity.Distribution.WebApi.Models;
 using Serilog;
 
 namespace InoversityIdentity.Distribution.WebApi;
@@ -17,9 +16,7 @@ internal static class HostingExtensions
                 options.Events.RaiseSuccessEvents = true;
                 options.EmitStaticAudienceClaim = true;
             })
-            .AddTestUsers(TestUsers.Users)
-            .AddAspNetIdentity<ApplicationUser>()
-            .AddProfileService<CustomProfileService>();
+            .AddTestUsers(TestUsers.Users);
 
         builder.Services.AddAuthentication();
 
