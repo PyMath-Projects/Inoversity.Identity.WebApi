@@ -1,8 +1,4 @@
-using Duende.IdentityServer;
-using InoversityIdentity.Distribution.WebApi.Data;
 using InoversityIdentity.Distribution.WebApi.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace InoversityIdentity.Distribution.WebApi;
@@ -12,13 +8,6 @@ internal static class HostingExtensions
     public static WebApplication ConfigureServices(this WebApplicationBuilder builder)
     {
 
-        builder.Services.AddDbContext<ApplicationDbContext>(options =>
-            options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
-        builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
-            .AddEntityFrameworkStores<ApplicationDbContext>()
-            .AddDefaultTokenProviders();
-
         builder.Services
             .AddIdentityServer(options =>
             {
@@ -26,26 +15,13 @@ internal static class HostingExtensions
                 options.Events.RaiseInformationEvents = true;
                 options.Events.RaiseFailureEvents = true;
                 options.Events.RaiseSuccessEvents = true;
-
-                // see https://docs.duendesoftware.com/identityserver/v6/fundamentals/resources/
                 options.EmitStaticAudienceClaim = true;
             })
             .AddTestUsers(TestUsers.Users)
-            .AddInMemoryIdentityResources(Config.IdentityResources)
-            .AddInMemoryApiResources(Config.ApiResources)
-            .AddInMemoryApiScopes(Config.ApiScopes)
-            .AddInMemoryClients(Config.Clients)
             .AddAspNetIdentity<ApplicationUser>()
             .AddProfileService<CustomProfileService>();
 
         builder.Services.AddAuthentication();
-            // .AddGoogle(options =>
-            // {
-            //     options.SignInScheme = IdentityServerConstants.ExternalCookieAuthenticationScheme;
-            //
-            //     options.ClientId = builder.Configuration["Authentication:Google:ClientId"];
-            //     options.ClientSecret = builder.Configuration["Authentication:Google:ClientSecret"];
-            // });
 
         return builder.Build();
     }
@@ -62,7 +38,7 @@ internal static class HostingExtensions
         app.UseStaticFiles();
         app.UseRouting();
         app.UseIdentityServer();
-        // app.UseAuthorization();
+        app.UseAuthorization();
 
         return app;
     }
