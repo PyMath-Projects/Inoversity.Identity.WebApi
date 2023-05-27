@@ -1,3 +1,4 @@
+using InoversityIdentity.Distribution.WebApi.Controllers;
 using Serilog;
 
 namespace InoversityIdentity.Distribution.WebApi;
